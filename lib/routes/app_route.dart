@@ -11,8 +11,5 @@ class AppRoute {
     GetPage(name: '/onboardScreen', page: () => const OnBoardScreen()),
     GetPage(name: '/signinScreen', page: () => const SignInScreen()),
     GetPage(name: '/homeScreen', page: () => const HomeScreen()),
-    // GetPage(name: '/novelOTPValidation', page: () => OTPScreen()),
-    // GetPage(name: '/novelListHome', page: () => NovelListHomeScreen()),
-    // GetPage(name: '/novelDetail', page: () => NovelDetailsScreen()),
   ];
 }
