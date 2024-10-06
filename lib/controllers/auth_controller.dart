@@ -32,7 +32,7 @@ class AuthController extends GetxController {
     try {
       isLoading(true);
       debugPrint('${isLoading.value}');
-      var fetchSignIn = await DatabaseService().authSignIn(email, pass);
+      var fetchSignIn = await DatabaseService.instance.authSignIn(email, pass);
       if (fetchSignIn['token'] == 'QpwL5tke4Pnpja7X4') {
         snackBarWidget.displaySnackBar(
           'Welcome Back',
