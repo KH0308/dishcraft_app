@@ -51,21 +51,6 @@ class RecipeController extends GetxController {
     selectedRecipeTypeOnEditCreate.value = type;
   }
 
-  // RecipeType? getRecipeTypeFromString(String type) {
-  //   switch (type) {
-  //     case 'All':
-  //       return RecipeType(id: 0, type: 'All');
-  //     case 'Appetizer':
-  //       return RecipeType(id: 1, type: 'Appetizer');
-  //     case 'Main Course':
-  //       return RecipeType(id: 2, type: 'Main Course');
-  //     case 'Dessert':
-  //       return RecipeType(id: 3, type: 'Dessert');
-  //     default:
-  //       return null;
-  //   }
-  // }
-
   RecipeType? getRecipeTypeFromString(String type) {
     return recipeTypes.firstWhere(
       (recipeType) => recipeType.type == type,

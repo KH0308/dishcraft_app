@@ -30,10 +30,9 @@ class _OnBoardScreenState extends State<OnBoardScreen> {
           if (isExitWarning) {
             snackBarWidget.displaySnackBar('Press back again to exit',
                 Colors.black, Colors.white, context);
-            // return false; // Prevents popping
           } else {
             ScaffoldMessenger.of(context).clearSnackBars();
-            SystemNavigator.pop(); // Exits the app
+            SystemNavigator.pop();
           }
         }
       },

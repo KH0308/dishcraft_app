@@ -37,10 +37,9 @@ class _SignInScreenState extends State<SignInScreen> {
           if (isExitWarning) {
             snackBarWidget.displaySnackBar('Press back again to exit',
                 Colors.black, Colors.white, context);
-            // return false; // Prevents popping
           } else {
             ScaffoldMessenger.of(context).clearSnackBars();
-            SystemNavigator.pop(); // Exits the app
+            SystemNavigator.pop();
           }
         }
       },
@@ -165,7 +164,6 @@ class _SignInScreenState extends State<SignInScreen> {
                                   }
                                   return null;
                                 },
-                                // keyboardType: TextInputType.visiblePassword,
                                 textInputAction: TextInputAction.done,
                                 controller: passwordController,
                                 style: GoogleFonts.lato(
@@ -220,9 +218,6 @@ class _SignInScreenState extends State<SignInScreen> {
                                             ? Colors.black12
                                             : Colors.teal.shade900),
                                     onPressed: () {
-                                      // setState(() {
-                                      //   obsScrText = !obsScrText;
-                                      // });
                                       authController.updateObsScrText();
                                     },
                                   ),

@@ -35,10 +35,9 @@ class HomeScreen extends StatelessWidget {
                 Colors.black,
                 const Color.fromARGB(255, 175, 166, 166),
                 context);
-            // return false; // Prevents popping
           } else {
             ScaffoldMessenger.of(context).clearSnackBars();
-            SystemNavigator.pop(); // Exits the app
+            SystemNavigator.pop();
           }
         }
       },
@@ -357,7 +356,6 @@ class HomeScreen extends StatelessWidget {
                                       onTap: () {
                                         Get.to(() =>
                                             RecipeDetailPage(recipe: recipe));
-                                        // Get.to('/addEditScreen', arguments: recipe);
                                       },
                                     ),
                                   );
@@ -389,7 +387,6 @@ class HomeScreen extends StatelessWidget {
             backgroundColor: Colors.teal.shade900,
             onPressed: () {
               Get.to(() => AddEditRecipeScreen());
-              // Get.to('/addEditScreen');
             },
             child: const Icon(
               Icons.note_add_rounded,
