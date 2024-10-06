@@ -10,7 +10,6 @@ void main() {
 class DishCraftApp extends StatelessWidget {
   const DishCraftApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(

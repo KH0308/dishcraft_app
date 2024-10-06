@@ -21,9 +21,8 @@ class Recipe {
       'name': name,
       'type': type,
       'imagePath': imagePath,
-      'ingredients':
-          ingredients.join(','), // Convert List<String> to a single string
-      'steps': steps.join(','), // Convert List<String> to a single string
+      'ingredients': ingredients.join(','),
+      'steps': steps.join(','),
     };
   }
 
@@ -33,10 +32,8 @@ class Recipe {
       name: json['name'],
       type: json['type'],
       imagePath: json['imagePath'],
-      ingredients: (json['ingredients'] as String)
-          .split(','), // Convert back to List<String>
-      steps:
-          (json['steps'] as String).split(','), // Convert back to List<String>
+      ingredients: (json['ingredients'] as String).split(','),
+      steps: (json['steps'] as String).split(','),
     );
   }
 }

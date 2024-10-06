@@ -32,8 +32,6 @@ class AddEditRecipeScreen extends StatelessWidget {
       recipeController.selectedImage.value = recipe!.imagePath;
       recipeController.selectedRecipeTypeOnEditCreate.value =
           recipeController.getRecipeTypeFromString(recipe!.type);
-      // recipeController.selectedRecipeTypeOnEditCreate.value =
-      //     recipe!.type as RecipeType?;
       debugPrint(recipe!.type);
     }
 
@@ -115,7 +113,6 @@ class AddEditRecipeScreen extends StatelessWidget {
           if (response) {
             recipeController.clearImage();
             recipeController.selectedRecipeTypeOnEditCreate.value = null;
-            // Navigator.of(context).pop;
             Get.back();
           }
         }
@@ -212,7 +209,6 @@ class AddEditRecipeScreen extends StatelessWidget {
                                             borderRadius:
                                                 BorderRadius.circular(100),
                                           ),
-                                          // shape: BoxShape.rectangle,
                                           image: const DecorationImage(
                                             image: AssetImage(
                                                 "assets/images/dish_default.png"),
