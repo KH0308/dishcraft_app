@@ -43,7 +43,7 @@ class _OnBoardScreenState extends State<OnBoardScreen> {
             physics: const RangeMaintainingScrollPhysics(),
             child: Container(
               width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.width * 0.95,
+              height: MediaQuery.of(context).size.height * 0.95,
               decoration: const BoxDecoration(
                 image: DecorationImage(
                   image: AssetImage("assets/images/DishCraft_bg.png"),
@@ -53,7 +53,7 @@ class _OnBoardScreenState extends State<OnBoardScreen> {
               child: Align(
                 alignment: Alignment.bottomCenter,
                 child: Padding(
-                  padding: const EdgeInsets.fromLTRB(16, 20, 16, 40),
+                  padding: const EdgeInsets.fromLTRB(16, 20, 16, 80),
                   child: ElevatedButton(
                     onPressed: () {
                       Get.offNamed('/signinScreen');

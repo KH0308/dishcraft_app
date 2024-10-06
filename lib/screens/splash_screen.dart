@@ -27,8 +27,8 @@ class _SplashScreenState extends State<SplashScreen> {
 
   navigateToOnBoard() {
     Get.offNamed('/onboardScreen');
-    snackBarWidget.displaySnackBar("Your Session Expired\n Re-SignIn Again",
-        Colors.white, Colors.red, context);
+    snackBarWidget.displaySnackBar(
+        "Session Expired\n Re-SignIn Again", Colors.white, Colors.red, context);
   }
 
   navigateToHome() {
@@ -38,7 +38,7 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   checkTokenStatus() async {
-    await Future.delayed(const Duration(seconds: 3), () async {
+    await Future.delayed(const Duration(seconds: 5), () async {
       final SharedPreferences prefs = await SharedPreferences.getInstance();
       final String tokenStore = prefs.getString('token') ?? '';
 
@@ -60,8 +60,8 @@ class _SplashScreenState extends State<SplashScreen> {
           padding: const EdgeInsets.all(16),
           child: Center(
             child: SizedBox(
-              width: MediaQuery.of(context).size.width * 0.80,
-              height: MediaQuery.of(context).size.width * 0.30,
+              width: MediaQuery.of(context).size.width * 0.50,
+              height: MediaQuery.of(context).size.height * 0.95,
               child: Lottie.asset(
                 'assets/json/loading_animation.json',
                 fit: BoxFit.fitWidth,

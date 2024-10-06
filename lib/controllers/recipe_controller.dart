@@ -5,6 +5,7 @@ import 'package:dishcraft_app/services/database_service.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../models/recipe.dart';
 import '../models/recipe_type.dart';
@@ -13,6 +14,7 @@ class RecipeController extends GetxController {
   var recipes = <Recipe>[].obs;
   var recipeTypes = <RecipeType>[].obs;
   var selectedRecipeType = Rxn<RecipeType>();
+  var selectedRecipeTypeOnEditCreate = Rxn<RecipeType>();
   var selectedImage = ''.obs;
   File? imageSelected;
 
@@ -36,13 +38,38 @@ class RecipeController extends GetxController {
 
   Future<void> loadRecipeTypes() async {
     final String response =
-        await rootBundle.loadString('assets/recipetypes.json');
+        await rootBundle.loadString('assets/json/recipetypes.json');
     final data = json.decode(response) as List;
     recipeTypes.value = data.map((json) => RecipeType.fromJson(json)).toList();
   }
 
   void selectRecipeType(RecipeType? type) {
     selectedRecipeType.value = type;
+  }
+
+  void selectRecipeTypeOnEditUpdate(RecipeType? type) {
+    selectedRecipeTypeOnEditCreate.value = type;
+  }
+
+  // RecipeType? getRecipeTypeFromString(String type) {
+  //   switch (type) {
+  //     case 'All':
+  //       return RecipeType(id: 0, type: 'All');
+  //     case 'Appetizer':
+  //       return RecipeType(id: 1, type: 'Appetizer');
+  //     case 'Main Course':
+  //       return RecipeType(id: 2, type: 'Main Course');
+  //     case 'Dessert':
+  //       return RecipeType(id: 3, type: 'Dessert');
+  //     default:
+  //       return null;
+  //   }
+  // }
+
+  RecipeType? getRecipeTypeFromString(String type) {
+    return recipeTypes.firstWhere(
+      (recipeType) => recipeType.type == type,
+    );
   }
 
   Future<void> fetchRecipes() async {
@@ -76,5 +103,11 @@ class RecipeController extends GetxController {
 
   void clearImage() async {
     selectedImage.value = '';
+  }
+
+  void navigateToLogout() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    pref.remove("token");
+    Get.offAllNamed('/signinScreen');
   }
 }

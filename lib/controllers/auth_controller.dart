@@ -8,7 +8,7 @@ import '../services/database_service.dart';
 import '../widgets/snackbar_widget.dart';
 
 class AuthController extends GetxController {
-  var isLoading = true.obs;
+  var isLoading = false.obs;
   var obsScrText = true.obs;
   SnackBarWidget snackBarWidget = SnackBarWidget();
 

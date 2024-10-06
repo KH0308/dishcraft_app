@@ -173,7 +173,7 @@ class DatabaseService {
     );
 
     if (response.statusCode == 200 || response.statusCode == 201) {
-      prefs.setString('user_token', json.decode(response.body)['token']);
+      prefs.setString('token', json.decode(response.body)['token']);
       debugPrint('Sign In successful');
       return json.decode(response.body);
     } else if (response.statusCode == 400) {

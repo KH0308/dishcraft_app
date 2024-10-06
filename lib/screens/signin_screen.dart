@@ -50,7 +50,7 @@ class _SignInScreenState extends State<SignInScreen> {
             physics: const RangeMaintainingScrollPhysics(),
             child: Container(
               width: MediaQuery.of(context).size.width,
-              // height: MediaQuery.of(context).size.width * 0.95,
+              height: MediaQuery.of(context).size.height * 0.95,
               decoration: const BoxDecoration(
                 image: DecorationImage(
                   image: AssetImage("assets/images/DishCraft_bg_main.png"),
@@ -67,13 +67,13 @@ class _SignInScreenState extends State<SignInScreen> {
                       Padding(
                         padding: const EdgeInsetsDirectional.fromSTEB(
                           5,
-                          80,
+                          60,
                           5,
-                          20,
+                          10,
                         ),
                         child: Container(
-                          width: 150,
-                          height: 150,
+                          width: 180,
+                          height: 180,
                           decoration: const BoxDecoration(
                             shape: BoxShape.circle,
                             image: DecorationImage(
@@ -89,12 +89,12 @@ class _SignInScreenState extends State<SignInScreen> {
                         style: GoogleFonts.lato(
                           fontSize: 24,
                           color: Colors.black,
-                          fontWeight: FontWeight.w500,
+                          fontWeight: FontWeight.bold,
                           fontStyle: FontStyle.normal,
                         ),
                       ),
                       const SizedBox(
-                        height: 40,
+                        height: 15,
                       ),
                       Form(
                         key: formKey,
@@ -232,6 +232,9 @@ class _SignInScreenState extends State<SignInScreen> {
                             ),
                           ],
                         ),
+                      ),
+                      const SizedBox(
+                        height: 30,
                       ),
                       Obx(
                         () => ElevatedButton(

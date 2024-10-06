@@ -18,9 +18,15 @@ class RecipeDetailPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        // appBar: AppBar(title: Text(recipe.name)),
-        body: SingleChildScrollView(
-          physics: const RangeMaintainingScrollPhysics(),
+        body: Container(
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height * 0.95,
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage("assets/images/DishCraft_bg_main.png"),
+              fit: BoxFit.fill,
+            ),
+          ),
           child: Padding(
             padding: const EdgeInsets.all(16.0),
             child: Column(
@@ -53,7 +59,7 @@ class RecipeDetailPage extends StatelessWidget {
                 ),
                 Container(
                   width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height * 0.60,
+                  height: MediaQuery.of(context).size.height * 0.65,
                   decoration: BoxDecoration(
                     color: Colors.teal.shade900,
                     borderRadius: const BorderRadius.only(
