@@ -169,13 +169,21 @@ class HomeScreen extends StatelessWidget {
                                           recipe: recipe,
                                         ));
                                   },
-                                  child: const Icon(Icons.edit),
+                                  child: Icon(
+                                    Icons.edit,
+                                    color: Colors.teal.shade900,
+                                    size: 24,
+                                  ),
                                 ),
                                 GestureDetector(
                                   onTap: () {
                                     recipeController.deleteRecipe(recipe.id!);
                                   },
-                                  child: const Icon(Icons.delete),
+                                  child: Icon(
+                                    Icons.delete,
+                                    color: Colors.teal.shade900,
+                                    size: 24,
+                                  ),
                                 ),
                               ],
                             ),

@@ -1,7 +1,10 @@
 import 'dart:convert';
+import 'dart:io';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dishcraft_app/services/database_service.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../models/recipe.dart';
 import '../models/recipe_type.dart';
@@ -10,12 +13,25 @@ class RecipeController extends GetxController {
   var recipes = <Recipe>[].obs;
   var recipeTypes = <RecipeType>[].obs;
   var selectedRecipeType = Rxn<RecipeType>();
+  var selectedImage = ''.obs;
+  File? imageSelected;
 
   @override
   void onInit() {
     fetchRecipes();
     loadRecipeTypes();
     super.onInit();
+  }
+
+  checkConnectivity() async {
+    var connectionResult = await Connectivity().checkConnectivity();
+
+    if (connectionResult != ConnectivityResult.mobile &&
+        connectionResult != ConnectivityResult.wifi) {
+      return false;
+    } else {
+      return true;
+    }
   }
 
   Future<void> loadRecipeTypes() async {
@@ -47,5 +63,18 @@ class RecipeController extends GetxController {
   Future<void> deleteRecipe(int id) async {
     await DatabaseService.instance.deleteRecipe(id);
     fetchRecipes();
+  }
+
+  void selectImage() async {
+    var imagePicker = ImagePicker();
+    var pickedImage = await imagePicker.pickImage(source: ImageSource.gallery);
+
+    if (pickedImage != null) {
+      selectedImage.value = pickedImage.path;
+    }
+  }
+
+  void clearImage() async {
+    selectedImage.value = '';
   }
 }
