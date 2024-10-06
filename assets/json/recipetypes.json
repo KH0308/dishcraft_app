@@ -1,0 +1,7 @@
+[
+    {"id": 0, "type": "All"},  
+    {"id": 1, "type": "Appetizer"},
+    {"id": 2, "type": "Main Course"},
+    {"id": 3, "type": "Dessert"}
+  ]
+  
