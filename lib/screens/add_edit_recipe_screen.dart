@@ -524,6 +524,10 @@ class AddEditRecipeScreen extends StatelessWidget {
                                 Colors.white,
                                 context,
                               );
+                              recipeController.clearImage();
+                              recipeController
+                                  .selectedRecipeTypeOnEditCreate.value = null;
+                              Get.offNamed('/homeScreen');
                             } else {
                               snackBarWidget.displaySnackBar(
                                 'Opps something wrong with connection',
@@ -557,6 +561,10 @@ class AddEditRecipeScreen extends StatelessWidget {
                                 Colors.white,
                                 context,
                               );
+                              recipeController.clearImage();
+                              recipeController
+                                  .selectedRecipeTypeOnEditCreate.value = null;
+                              Get.offNamed('/homeScreen');
                             } else {
                               snackBarWidget.displaySnackBar(
                                 'Opps something wrong with connection',
@@ -573,10 +581,6 @@ class AddEditRecipeScreen extends StatelessWidget {
                               context,
                             );
                           }
-                          recipeController.clearImage();
-                          recipeController
-                              .selectedRecipeTypeOnEditCreate.value = null;
-                          Get.offNamed('/homeScreen');
                         },
                         style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all<Color>(
