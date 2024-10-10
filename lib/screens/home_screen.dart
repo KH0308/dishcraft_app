@@ -281,102 +281,119 @@ class HomeScreen extends StatelessWidget {
                                           .selectedRecipeType.value!.type;
                                 }).toList();
 
-                      return filteredRecipes.isNotEmpty
+                      return recipeController.loadingRecipe.isTrue
                           ? SizedBox(
                               width: MediaQuery.of(context).size.width,
                               height: MediaQuery.of(context).size.height * 0.75,
-                              child: ListView.builder(
-                                itemCount: filteredRecipes.length,
-                                itemBuilder: (context, index) {
-                                  final recipe = filteredRecipes[index];
-                                  return Card(
-                                    color: Colors.teal.shade900,
-                                    shadowColor: Colors.black,
-                                    child: ListTile(
-                                      tileColor: Colors.transparent,
-                                      leading: recipe.imagePath != ''
-                                          ? CircleAvatar(
-                                              radius: 20,
-                                              backgroundColor:
-                                                  Colors.teal.shade900,
-                                              backgroundImage: FileImage(
-                                                File(recipe.imagePath),
-                                              ),
-                                            )
-                                          : Icon(
-                                              Icons.book,
-                                              color: Colors.teal.shade900,
-                                              size: 24,
-                                            ),
-                                      title: Text(
-                                        recipe.name,
-                                        style: GoogleFonts.lato(
-                                          color: Colors.white,
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                      subtitle: Text(
-                                        'Type: ${recipe.type}',
-                                        style: GoogleFonts.lato(
-                                          color: Colors.grey.shade400,
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w400,
-                                        ),
-                                      ),
-                                      trailing: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceAround,
-                                        children: [
-                                          GestureDetector(
-                                            onTap: () {
-                                              Get.to(() => AddEditRecipeScreen(
-                                                    recipe: recipe,
-                                                  ));
-                                            },
-                                            child: const Icon(
-                                              Icons.edit,
-                                              color: Colors.white,
-                                              size: 24,
-                                            ),
-                                          ),
-                                          GestureDetector(
-                                            onTap: () {
-                                              recipeController
-                                                  .deleteRecipe(recipe.id!);
-                                            },
-                                            child: Icon(
-                                              Icons.delete,
-                                              color: Colors.red.shade700,
-                                              size: 24,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      onTap: () {
-                                        Get.to(() =>
-                                            RecipeDetailPage(recipe: recipe));
-                                      },
-                                    ),
-                                  );
-                                },
-                              ),
-                            )
-                          : SizedBox(
-                              width: MediaQuery.of(context).size.width,
-                              height: MediaQuery.of(context).size.height * 0.75,
-                              child: Align(
-                                alignment: Alignment.center,
-                                child: Text(
-                                  'Recipe list is empty',
-                                  style: GoogleFonts.lato(
-                                    color: Colors.black,
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w400,
-                                  ),
+                              child: Center(
+                                child: CircularProgressIndicator(
+                                  backgroundColor: Colors.teal.shade900,
+                                  strokeWidth: 4.0,
+                                  strokeCap: StrokeCap.round,
+                                  valueColor: const AlwaysStoppedAnimation(
+                                      Colors.white),
                                 ),
                               ),
-                            );
+                            )
+                          : filteredRecipes.isNotEmpty
+                              ? SizedBox(
+                                  width: MediaQuery.of(context).size.width,
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.75,
+                                  child: ListView.builder(
+                                    itemCount: filteredRecipes.length,
+                                    itemBuilder: (context, index) {
+                                      final recipe = filteredRecipes[index];
+                                      return Card(
+                                        color: Colors.teal.shade900,
+                                        shadowColor: Colors.black,
+                                        child: ListTile(
+                                          tileColor: Colors.transparent,
+                                          leading: recipe.imagePath != ''
+                                              ? CircleAvatar(
+                                                  radius: 20,
+                                                  backgroundColor:
+                                                      Colors.teal.shade900,
+                                                  backgroundImage: FileImage(
+                                                    File(recipe.imagePath),
+                                                  ),
+                                                )
+                                              : Icon(
+                                                  Icons.book,
+                                                  color: Colors.teal.shade900,
+                                                  size: 24,
+                                                ),
+                                          title: Text(
+                                            recipe.name,
+                                            style: GoogleFonts.lato(
+                                              color: Colors.white,
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                          subtitle: Text(
+                                            'Type: ${recipe.type}',
+                                            style: GoogleFonts.lato(
+                                              color: Colors.grey.shade400,
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w400,
+                                            ),
+                                          ),
+                                          trailing: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceAround,
+                                            children: [
+                                              GestureDetector(
+                                                onTap: () {
+                                                  Get.to(
+                                                      () => AddEditRecipeScreen(
+                                                            recipe: recipe,
+                                                          ));
+                                                },
+                                                child: const Icon(
+                                                  Icons.edit,
+                                                  color: Colors.white,
+                                                  size: 24,
+                                                ),
+                                              ),
+                                              GestureDetector(
+                                                onTap: () {
+                                                  recipeController
+                                                      .deleteRecipe(recipe.id!);
+                                                },
+                                                child: Icon(
+                                                  Icons.delete,
+                                                  color: Colors.red.shade700,
+                                                  size: 24,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                          onTap: () {
+                                            Get.to(() => RecipeDetailPage(
+                                                recipe: recipe));
+                                          },
+                                        ),
+                                      );
+                                    },
+                                  ),
+                                )
+                              : SizedBox(
+                                  width: MediaQuery.of(context).size.width,
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.75,
+                                  child: Align(
+                                    alignment: Alignment.center,
+                                    child: Text(
+                                      'Recipe list is empty',
+                                      style: GoogleFonts.lato(
+                                        color: Colors.black,
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                    ),
+                                  ),
+                                );
                     },
                   ),
                 ],

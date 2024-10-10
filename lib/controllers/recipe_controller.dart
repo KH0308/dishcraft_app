@@ -15,6 +15,7 @@ class RecipeController extends GetxController {
   var recipeTypes = <RecipeType>[].obs;
   var selectedRecipeType = Rxn<RecipeType>();
   var selectedRecipeTypeOnEditCreate = Rxn<RecipeType>();
+  var loadingRecipe = false.obs;
   var selectedImage = ''.obs;
   File? imageSelected;
 
@@ -43,8 +44,12 @@ class RecipeController extends GetxController {
     recipeTypes.value = data.map((json) => RecipeType.fromJson(json)).toList();
   }
 
-  void selectRecipeType(RecipeType? type) {
-    selectedRecipeType.value = type;
+  void selectRecipeType(RecipeType? type) async {
+    loadingRecipe(true);
+    await Future.delayed(const Duration(milliseconds: 500), () async {
+      selectedRecipeType.value = type;
+    });
+    loadingRecipe(false);
   }
 
   void selectRecipeTypeOnEditUpdate(RecipeType? type) {
@@ -58,8 +63,12 @@ class RecipeController extends GetxController {
   }
 
   Future<void> fetchRecipes() async {
-    final data = await DatabaseService.instance.getRecipes();
-    recipes.value = data.map((json) => Recipe.fromJson(json)).toList();
+    loadingRecipe(true);
+    await Future.delayed(const Duration(milliseconds: 500), () async {
+      final data = await DatabaseService.instance.getRecipes();
+      recipes.value = data.map((json) => Recipe.fromJson(json)).toList();
+    });
+    loadingRecipe(false);
   }
 
   Future<void> addRecipe(Recipe recipe) async {

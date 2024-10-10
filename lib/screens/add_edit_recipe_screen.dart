@@ -21,7 +21,6 @@ class AddEditRecipeScreen extends StatelessWidget {
   final _ingredientsController = TextEditingController();
   final _stepsController = TextEditingController();
   final formKey = GlobalKey<FormState>();
-  // String? selectedImage;
 
   @override
   Widget build(BuildContext context) {
@@ -335,6 +334,12 @@ class AddEditRecipeScreen extends StatelessWidget {
                             recipeController
                                 .selectRecipeTypeOnEditUpdate(newValue);
                           },
+                          validator: (value) {
+                            if (value == null || value.type == '') {
+                              return 'Recipe type is required';
+                            }
+                            return null;
+                          },
                           decoration: InputDecoration(
                             labelText: 'Recipe Type',
                             filled: true,
@@ -411,7 +416,7 @@ class AddEditRecipeScreen extends StatelessWidget {
                           ),
                           helperStyle: GoogleFonts.lato(
                             fontSize: 10,
-                            color: Colors.red,
+                            color: Colors.teal.shade900,
                             fontStyle: FontStyle.italic,
                           ),
                           fillColor: Colors.grey.shade200,
@@ -470,7 +475,7 @@ class AddEditRecipeScreen extends StatelessWidget {
                           ),
                           helperStyle: GoogleFonts.lato(
                             fontSize: 10,
-                            color: Colors.red,
+                            color: Colors.teal.shade900,
                             fontStyle: FontStyle.italic,
                           ),
                           fillColor: Colors.grey.shade200,
@@ -503,7 +508,10 @@ class AddEditRecipeScreen extends StatelessWidget {
 
                           if (isValidForm != false &&
                               recipe == null &&
-                              recipeController.selectedImage.value != '') {
+                              recipeController.selectedImage.value != '' &&
+                              recipeController
+                                      .selectedRecipeTypeOnEditCreate.value !=
+                                  null) {
                             var resultState =
                                 await recipeController.checkConnectivity();
                             if (resultState == true) {
@@ -511,7 +519,9 @@ class AddEditRecipeScreen extends StatelessWidget {
                                 Recipe(
                                   name: _nameController.text,
                                   type: recipeController
-                                      .selectedRecipeType.value!.type,
+                                      .selectedRecipeTypeOnEditCreate
+                                      .value!
+                                      .type,
                                   imagePath:
                                       recipeController.selectedImage.value,
                                   ingredients: ingredientsList,
@@ -527,7 +537,7 @@ class AddEditRecipeScreen extends StatelessWidget {
                               recipeController.clearImage();
                               recipeController
                                   .selectedRecipeTypeOnEditCreate.value = null;
-                              Get.offNamed('/homeScreen');
+                              Get.offAllNamed('/homeScreen');
                             } else {
                               snackBarWidget.displaySnackBar(
                                 'Opps something wrong with connection',
@@ -550,7 +560,8 @@ class AddEditRecipeScreen extends StatelessWidget {
                                       .selectedRecipeTypeOnEditCreate
                                       .value!
                                       .type,
-                                  imagePath: recipe!.imagePath,
+                                  imagePath:
+                                      recipeController.selectedImage.value,
                                   ingredients: ingredientsList,
                                   steps: stepsList,
                                 ),
@@ -564,7 +575,7 @@ class AddEditRecipeScreen extends StatelessWidget {
                               recipeController.clearImage();
                               recipeController
                                   .selectedRecipeTypeOnEditCreate.value = null;
-                              Get.offNamed('/homeScreen');
+                              Get.offAllNamed('/homeScreen');
                             } else {
                               snackBarWidget.displaySnackBar(
                                 'Opps something wrong with connection',
