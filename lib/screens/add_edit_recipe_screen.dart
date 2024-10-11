@@ -11,28 +11,60 @@ import '../controllers/recipe_controller.dart';
 import '../models/recipe.dart';
 import '../models/recipe_type.dart';
 
-class AddEditRecipeScreen extends StatelessWidget {
-  AddEditRecipeScreen({super.key, this.recipe});
-  final RecipeController recipeController = Get.find();
+class AddEditRecipeScreen extends StatefulWidget {
+  const AddEditRecipeScreen({super.key, this.recipe});
   final Recipe? recipe;
+
+  @override
+  State<AddEditRecipeScreen> createState() => _AddEditRecipeScreenState();
+}
+
+class _AddEditRecipeScreenState extends State<AddEditRecipeScreen> {
+  final RecipeController recipeController = Get.find();
+
   final SnackBarWidget snackBarWidget = SnackBarWidget();
 
-  final _nameController = TextEditingController();
-  final _ingredientsController = TextEditingController();
-  final _stepsController = TextEditingController();
+  TextEditingController nameController = TextEditingController();
+
+  TextEditingController ingredientsController = TextEditingController();
+
+  TextEditingController stepsController = TextEditingController();
+
   final formKey = GlobalKey<FormState>();
 
   @override
-  Widget build(BuildContext context) {
-    if (recipe != null) {
-      _nameController.text = recipe!.name;
-      _ingredientsController.text = recipe!.ingredients.join(', ');
-      _stepsController.text = recipe!.steps.join(', ');
-      recipeController.selectedImage.value = recipe!.imagePath;
+  void initState() {
+    if (widget.recipe != null) {
+      nameController.text = widget.recipe!.name;
+      ingredientsController.text = widget.recipe!.ingredients.join(', ');
+      stepsController.text = widget.recipe!.steps.join(', ');
+      recipeController.selectedImage.value = widget.recipe!.imagePath;
       recipeController.selectedRecipeTypeOnEditCreate.value =
-          recipeController.getRecipeTypeFromString(recipe!.type);
-      debugPrint(recipe!.type);
+          recipeController.getRecipeTypeFromString(widget.recipe!.type);
+      debugPrint(widget.recipe!.type);
     }
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    nameController.dispose();
+    ingredientsController.dispose();
+    stepsController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    // if (widget.recipe != null) {
+    //   nameController.text = widget.recipe!.name;
+    //   ingredientsController.text = widget.recipe!.ingredients.join(', ');
+    //   stepsController.text = widget.recipe!.steps.join(', ');
+    //   recipeController.selectedImage.value = widget.recipe!.imagePath;
+    //   recipeController.selectedRecipeTypeOnEditCreate.value =
+    //       recipeController.getRecipeTypeFromString(widget.recipe!.type);
+    //   debugPrint(widget.recipe!.type);
+    // }
 
     return PopScope(
       canPop: false,
@@ -120,7 +152,7 @@ class AddEditRecipeScreen extends StatelessWidget {
         child: Scaffold(
           appBar: AppBar(
             title: Text(
-              recipe == null ? 'Add Recipe' : 'Edit Recipe',
+              widget.recipe == null ? 'Add Recipe' : 'Edit Recipe',
               style: GoogleFonts.lato(
                 color: Colors.teal.shade900,
                 fontSize: 20,
@@ -266,7 +298,7 @@ class AddEditRecipeScreen extends StatelessWidget {
                         },
                         keyboardType: TextInputType.text,
                         textInputAction: TextInputAction.next,
-                        controller: _nameController,
+                        controller: nameController,
                         style: GoogleFonts.lato(
                           fontSize: 12,
                           color: Colors.black,
@@ -385,7 +417,7 @@ class AddEditRecipeScreen extends StatelessWidget {
                         },
                         keyboardType: TextInputType.text,
                         textInputAction: TextInputAction.next,
-                        controller: _ingredientsController,
+                        controller: ingredientsController,
                         style: GoogleFonts.lato(
                           fontSize: 12,
                           color: Colors.black,
@@ -444,7 +476,7 @@ class AddEditRecipeScreen extends StatelessWidget {
                         },
                         keyboardType: TextInputType.text,
                         textInputAction: TextInputAction.done,
-                        controller: _stepsController,
+                        controller: stepsController,
                         style: GoogleFonts.lato(
                           fontSize: 12,
                           color: Colors.black,
@@ -496,18 +528,18 @@ class AddEditRecipeScreen extends StatelessWidget {
                       const SizedBox(height: 25),
                       ElevatedButton(
                         onPressed: () async {
-                          final ingredientsList = _ingredientsController.text
+                          final ingredientsList = ingredientsController.text
                               .split(',')
                               .map((s) => s.trim())
                               .toList();
-                          final stepsList = _stepsController.text
+                          final stepsList = stepsController.text
                               .split(',')
                               .map((s) => s.trim())
                               .toList();
                           final isValidForm = formKey.currentState?.validate();
 
                           if (isValidForm != false &&
-                              recipe == null &&
+                              widget.recipe == null &&
                               recipeController.selectedImage.value != '' &&
                               recipeController
                                       .selectedRecipeTypeOnEditCreate.value !=
@@ -517,7 +549,7 @@ class AddEditRecipeScreen extends StatelessWidget {
                             if (resultState == true) {
                               recipeController.addRecipe(
                                 Recipe(
-                                  name: _nameController.text,
+                                  name: nameController.text,
                                   type: recipeController
                                       .selectedRecipeTypeOnEditCreate
                                       .value!
@@ -547,15 +579,15 @@ class AddEditRecipeScreen extends StatelessWidget {
                               );
                             }
                           } else if (isValidForm != false &&
-                              recipe != null &&
+                              widget.recipe != null &&
                               recipeController.selectedImage.value != '') {
                             var resultState =
                                 await recipeController.checkConnectivity();
                             if (resultState == true) {
                               recipeController.updateRecipe(
                                 Recipe(
-                                  id: recipe!.id,
-                                  name: _nameController.text,
+                                  id: widget.recipe!.id,
+                                  name: nameController.text,
                                   type: recipeController
                                       .selectedRecipeTypeOnEditCreate
                                       .value!
@@ -606,7 +638,7 @@ class AddEditRecipeScreen extends StatelessWidget {
                           ),
                         ),
                         child: Text(
-                          recipe == null ? 'Add' : 'Update',
+                          widget.recipe == null ? 'Add' : 'Update',
                           style: GoogleFonts.lato(
                             fontSize: 14,
                             color: Colors.white,

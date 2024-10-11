@@ -12,6 +12,6 @@ class AppRoute {
     GetPage(name: '/onboardScreen', page: () => const OnBoardScreen()),
     GetPage(name: '/signinScreen', page: () => const SignInScreen()),
     GetPage(name: '/homeScreen', page: () => HomeScreen()),
-    GetPage(name: '/addEditScreen', page: () => AddEditRecipeScreen()),
+    GetPage(name: '/addEditScreen', page: () => const AddEditRecipeScreen()),
   ];
 }
