@@ -21,15 +21,10 @@ class AddEditRecipeScreen extends StatefulWidget {
 
 class _AddEditRecipeScreenState extends State<AddEditRecipeScreen> {
   final RecipeController recipeController = Get.find();
-
   final SnackBarWidget snackBarWidget = SnackBarWidget();
-
   TextEditingController nameController = TextEditingController();
-
   TextEditingController ingredientsController = TextEditingController();
-
   TextEditingController stepsController = TextEditingController();
-
   final formKey = GlobalKey<FormState>();
 
   @override
@@ -56,16 +51,6 @@ class _AddEditRecipeScreenState extends State<AddEditRecipeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // if (widget.recipe != null) {
-    //   nameController.text = widget.recipe!.name;
-    //   ingredientsController.text = widget.recipe!.ingredients.join(', ');
-    //   stepsController.text = widget.recipe!.steps.join(', ');
-    //   recipeController.selectedImage.value = widget.recipe!.imagePath;
-    //   recipeController.selectedRecipeTypeOnEditCreate.value =
-    //       recipeController.getRecipeTypeFromString(widget.recipe!.type);
-    //   debugPrint(widget.recipe!.type);
-    // }
-
     return PopScope(
       canPop: false,
       onPopInvoked: (bool didiPop) async {
