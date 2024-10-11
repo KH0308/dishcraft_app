@@ -403,7 +403,7 @@ class HomeScreen extends StatelessWidget {
           floatingActionButton: FloatingActionButton(
             backgroundColor: Colors.teal.shade900,
             onPressed: () {
-              Get.to(() => AddEditRecipeScreen());
+              Get.to(() => const AddEditRecipeScreen());
             },
             child: const Icon(
               Icons.note_add_rounded,
